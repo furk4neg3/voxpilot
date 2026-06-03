@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      VOXPILOT_ENGINE: ${VOXPILOT_ENGINE:-fallback}
+      VOXPILOT_AUDIO_DIR: /app/data/generated
+      VOXPILOT_DB_PATH: /app/data/voxpilot.db
+      VOXPILOT_LOG_LEVEL: ${VOXPILOT_LOG_LEVEL:-INFO}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  ui:
+    build: .
+    ports:
+      - "8501:8501"
+    command: streamlit run ui/streamlit_app.py --server.port 8501 --server.address 0.0.0.0
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      VOXPILOT_API_URL: http://api:8000
+    restart: unless-stopped

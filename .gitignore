@@ -1,0 +1,64 @@
+# macOS
+.DS_Store
+__MACOSX/
+._*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!*.env.example
+
+# FastAPI / backend generated data
+Backend/data/voxpilot.db
+Backend/data/voxpilot.db-*
+Backend/data/*.sqlite
+Backend/data/*.sqlite3
+
+# Generated audio/files
+Backend/data/generated/*
+!Backend/data/generated/.gitkeep
+
+Backend/demo/audio/*.wav
+Backend/demo/audio/*.mp3
+!Backend/demo/audio/.gitkeep
+!Backend/demo/audio/README.md
+
+Backend/demo/video/*.mp4
+Backend/demo/video/*.mov
+!Backend/demo/video/.gitkeep
+!Backend/demo/video/README.md
+
+# Node / Next.js
+Frontend/node_modules/
+Frontend/.next/
+Frontend/out/
+Frontend/dist/
+Frontend/.turbo/
+Frontend/.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/
+.idea/

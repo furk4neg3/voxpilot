@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+.pytest_cache
+.git
+.env
+data/generated/*
+data/voxpilot.db
+*.egg-info
+.venv
+venv
+demo/
+.github/
