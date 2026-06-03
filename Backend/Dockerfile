@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Python dependencies. ML dependencies are optional to keep default builds
 # small and CI/demo-friendly.
-ARG INSTALL_ML=false
+ARG INSTALL_ML=true
 COPY requirements.txt requirements-ml.txt ./
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \

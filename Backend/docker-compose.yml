@@ -10,11 +10,13 @@ services:
       VOXPILOT_AUDIO_DIR: /app/data/generated
       VOXPILOT_DB_PATH: /app/data/voxpilot.db
       VOXPILOT_LOG_LEVEL: ${VOXPILOT_LOG_LEVEL:-INFO}
+      HF_TOKEN: ${HF_TOKEN:-}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 20
+      start_period: 10m
     restart: unless-stopped
 
   ui:
