@@ -42,6 +42,41 @@ def test_create_engine_uses_fake_and_unknown_fallback_without_ml_dependencies():
     assert isinstance(unknown, FallbackEngine)
 
 
+def test_speecht5_loads_embeddings_from_parquet_revision(monkeypatch):
+    from app.tts import engine as speech_engine
+
+    if not speech_engine._HAS_DEPS:
+        pytest.skip("SpeechT5 dependencies are not installed")
+
+    load_calls = []
+
+    class _FakeModelLoader:
+        @classmethod
+        def from_pretrained(cls, model_id):
+            return cls()
+
+    def fake_load_dataset(*args, **kwargs):
+        load_calls.append((args, kwargs))
+        return [{"xvector": [0.0] * 512}]
+
+    monkeypatch.setattr(speech_engine, "SpeechT5Processor", _FakeModelLoader)
+    monkeypatch.setattr(speech_engine, "SpeechT5ForTextToSpeech", _FakeModelLoader)
+    monkeypatch.setattr(speech_engine, "SpeechT5HifiGan", _FakeModelLoader)
+    monkeypatch.setattr(speech_engine, "load_dataset", fake_load_dataset)
+
+    speech_engine.SpeechT5Engine()
+
+    assert load_calls == [
+        (
+            (speech_engine._EMBEDDINGS_DATASET_ID,),
+            {
+                "split": "validation",
+                "revision": speech_engine._EMBEDDINGS_DATASET_REVISION,
+            },
+        )
+    ]
+
+
 @pytest.mark.skipif(
     not SystemSayEngine.is_available(),
     reason="macOS say/afconvert are not available",

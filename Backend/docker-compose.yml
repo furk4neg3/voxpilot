@@ -1,6 +1,9 @@
 services:
   api:
-    build: .
+    build:
+      context: .
+      args:
+        INSTALL_ML: ${INSTALL_ML:-true}
     ports:
       - "8000:8000"
     volumes:
@@ -17,6 +20,20 @@ services:
       timeout: 10s
       retries: 20
       start_period: 10m
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../Frontend
+      args:
+        NEXT_PUBLIC_VOXPILOT_API_URL: ${NEXT_PUBLIC_VOXPILOT_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NEXT_PUBLIC_VOXPILOT_API_URL: ${NEXT_PUBLIC_VOXPILOT_API_URL:-http://localhost:8000}
     restart: unless-stopped
 
   ui:

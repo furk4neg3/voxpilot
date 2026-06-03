@@ -3,6 +3,7 @@
   "description": "Modern Next.js frontend for VoxPilot TTS Studio",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.12.2",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

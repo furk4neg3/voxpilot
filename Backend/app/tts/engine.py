@@ -36,6 +36,9 @@ except ImportError:
 
 # ── Voice presets ───────────────────────────────────────────────────────────
 # Indices into the CMU-ARCTIC xvector dataset (7931 entries).
+_EMBEDDINGS_DATASET_ID = "Matthijs/cmu-arctic-xvectors"
+_EMBEDDINGS_DATASET_REVISION = "refs/convert/parquet"
+
 _VOICE_PRESETS: dict[str, dict[str, Any]] = {
     "default": {
         "index": 7306,
@@ -104,10 +107,14 @@ class SpeechT5Engine(TTSEngine):
         self._model = SpeechT5ForTextToSpeech.from_pretrained("microsoft/speecht5_tts")
         self._vocoder = SpeechT5HifiGan.from_pretrained("microsoft/speecht5_hifigan")
 
-        logger.info("Loading CMU-ARCTIC preset embeddings.")
+        logger.info(
+            "Loading CMU-ARCTIC preset embeddings.",
+            extra={"revision": _EMBEDDINGS_DATASET_REVISION},
+        )
         self._embeddings_dataset = load_dataset(
-            "Matthijs/cmu-arctic-xvectors",
+            _EMBEDDINGS_DATASET_ID,
             split="validation",
+            revision=_EMBEDDINGS_DATASET_REVISION,
         )
         self._sample_rate = 16_000
         logger.info("SpeechT5Engine initialised (sample_rate=%d)", self._sample_rate)

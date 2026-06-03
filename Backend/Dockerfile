@@ -1,7 +1,7 @@
 # VoxPilot - TTS / Voice AI Studio PoC
 FROM python:3.11-slim AS base
 
-# System dependencies
+# System dependencies.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libsndfile1 \
     curl \
@@ -10,14 +10,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # Python dependencies. ML dependencies are optional to keep default builds
-# small and CI/demo-friendly.
+# small and CI/demo-friendly. pip is only used to bootstrap uv.
 ARG INSTALL_ML=true
 COPY requirements.txt requirements-ml.txt ./
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt && \
+RUN pip install --no-cache-dir uv && \
+    uv pip install --system --no-cache -r requirements.txt && \
     if [ "$INSTALL_ML" = "true" ]; then \
-      pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
-      pip install --no-cache-dir -r requirements-ml.txt; \
+      uv pip install --system --no-cache torch --index-url https://download.pytorch.org/whl/cpu && \
+      uv pip install --system --no-cache -r requirements-ml.txt; \
     fi
 
 # Application code

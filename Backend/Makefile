@@ -34,11 +34,11 @@ clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
 
 install:
-	pip install -r requirements.txt
+	uv pip install -r requirements.txt
 
 install-ml:
-	python -m pip install torch torchvision
-	python -m pip install -r requirements-ml.txt
+	uv pip install torch torchvision
+	uv pip install -r requirements-ml.txt
 
 seed:
 	python scripts/demo_seed.py

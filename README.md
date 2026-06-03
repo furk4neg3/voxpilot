@@ -126,7 +126,8 @@ cd Backend
 python -m venv .venv
 source .venv/bin/activate
 
-pip install -r requirements.txt
+python -m pip install uv
+uv pip install -r requirements.txt
 make install-ml
 make run-api
 ```
@@ -349,14 +350,36 @@ Services:
 
 ```text
 API: http://localhost:8000/health
+Next.js Frontend: http://localhost:3000
 Optional Streamlit UI: http://localhost:8501
 ```
 
-To build with optional ML dependencies:
+To run the FastAPI backend and Next.js frontend together:
+
+```bash
+VOXPILOT_ENGINE=speecht5 docker compose up --build api frontend
+```
+
+The Dockerized frontend defaults to calling the published backend URL:
+
+```env
+NEXT_PUBLIC_VOXPILOT_API_URL=http://localhost:8000
+```
+
+That value is intentionally browser-facing. Use `http://api:8000` only for
+container-to-container server calls, such as the optional Streamlit UI.
+
+To build with optional ML dependencies explicitly:
 
 ```bash
 docker compose build --build-arg INSTALL_ML=true
 VOXPILOT_ENGINE=speecht5 docker compose up
+```
+
+For a smaller fallback-only image, set:
+
+```bash
+INSTALL_ML=false docker compose build api
 ```
 
 ---
