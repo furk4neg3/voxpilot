@@ -6,6 +6,39 @@ This project is intentionally not positioned as a full ElevenLabs clone. The goa
 
 ---
 
+## Screenshots
+
+### Generate Speech
+
+VoxPilot provides a clean TTS generation interface where users can enter text, select language and voice presets, and generate speech through the active backend engine.
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/generate-cache-miss.png" alt="VoxPilot Generate page - cache miss" />
+      <br />
+      <sub>Initial generation with latency, duration, real-time factor, and cache miss status.</sub>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/generate-cache-hit.png" alt="VoxPilot Generate page - cache hit" />
+      <br />
+      <sub>Cached generation with near-instant latency and cache hit status.</sub>
+    </td>
+  </tr>
+</table>
+
+### Generation History
+
+Track previous synthesis runs with request metadata such as voice, language, engine, latency, duration, cache behavior, and status.
+
+<img src="docs/screenshots/history.png" alt="VoxPilot generation history page" />
+
+### System Metrics
+
+Monitor request statistics, latency performance, cache hit rate, engine usage, and evaluator feedback.
+
+<img src="docs/screenshots/metrics.png" alt="VoxPilot system metrics page" />
+
 ## Why I Built This
 
 After discussing a possible ElevenLabs-like product direction, I wanted to prepare a concrete prototype that shows more than interest in the domain. VoxPilot is my attempt to make that interest tangible through working code.
