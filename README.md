@@ -15,12 +15,12 @@ VoxPilot provides a clean TTS generation interface where users can enter text, s
 <table>
   <tr>
     <td width="50%">
-      <img src="docs/screenshots/generate-cache-miss.png", alt="VoxPilot Generate page - cache miss" />
+      <img src="docs/screenshots/generate-cache-miss.png"/>
       <br />
       <sub>Initial generation with latency, duration, real-time factor, and cache miss status.</sub>
     </td>
     <td width="50%">
-      <img src="docs/screenshots/generate-cache-hit.png", alt="VoxPilot Generate page - cache hit" />
+      <img src="docs/screenshots/generate-cache-hit.png"/>
       <br />
       <sub>Cached generation with near-instant latency and cache hit status.</sub>
     </td>
@@ -31,13 +31,13 @@ VoxPilot provides a clean TTS generation interface where users can enter text, s
 
 Track previous synthesis runs with request metadata such as voice, language, engine, latency, duration, cache behavior, and status.
 
-<img src="docs/screenshots/history.png", alt="VoxPilot generation history page" />
+<img src="docs/screenshots/history.png"/>
 
 ### System Metrics
 
 Monitor request statistics, latency performance, cache hit rate, engine usage, and evaluator feedback.
 
-<img src="docs/screenshots/metrics.png", alt="VoxPilot system metrics page" />
+<img src="docs/screenshots/metrics.png"/>
 
 ## Why I Built This
 
